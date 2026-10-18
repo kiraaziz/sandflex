@@ -1,0 +1,29 @@
+services:
+  db-auth:
+    image: postgres:17-alpine
+    container_name: db-auth
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: main-auth
+      POSTGRES_USER: auth-user
+      POSTGRES_PASSWORD: auth-password
+    ports:
+    - "5432:5432"
+    volumes:
+    - db-auth-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U auth-user -d main-auth"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  mail-auth:
+    image: axllent/mailpit:latest
+    container_name: mail-auth
+    restart: unless-stopped
+    ports:
+    - "1025:1025"
+    - "8025:8025"
+
+volumes:
+  db-auth-data:
