@@ -24,9 +24,10 @@ function Me() {
     return (
         <div>
             <p>Me</p>
-            <p>{state.name}</p>
+            {JSON.stringify(state)}
+            {/* <p>{state.name}</p>
             <p>{state.email}</p>
-            <p>{state.isActive ? "Active" : "Not active"}</p>
+            <p>{state.isActive ? "Active" : "Not active"}</p> */}
             <button
                 disabled={isPending}
                 onClick={() => {
