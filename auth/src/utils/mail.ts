@@ -2,7 +2,6 @@ import "dotenv/config"
 import nodemailer from "nodemailer"
 
 const from = process.env["SMTP_FROM"]
-const appUrl = process.env["APP_URL"]
 
 const transporter = nodemailer.createTransport({
     host: process.env["SMTP_HOST"] ?? "localhost",
@@ -11,6 +10,7 @@ const transporter = nodemailer.createTransport({
 })
 
 export async function sendActivationEmail(to: string, name: string, code: string) {
+    console.log(`Sending activation email to ${to} with code ${code}`)
     await transporter.sendMail({
         from,
         to,
@@ -20,7 +20,7 @@ export async function sendActivationEmail(to: string, name: string, code: string
 }
 
 export async function sendPasswordResetEmail(to: string, name: string, token: string) {
-    const link = `${appUrl}/reset-password?token=${token}`
+    const link = `${process.env.UI_URL}/auth/reset-password?token=${token}`
     await transporter.sendMail({
         from,
         to,

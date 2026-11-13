@@ -7,6 +7,8 @@ import { Button, buttonVariants } from "#/components/ui/button"
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "#/components/ui/input-otp"
 import { Field, FieldError, FieldGroup, FieldLabel } from "#/components/ui/field"
 import { cn } from "#/lib/utils"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { LoaderIcon } from "@hugeicons/core-free-icons"
 
 const schema = z.object({
   code: z.string().length(6, "Enter the 6-digit code")
@@ -39,7 +41,7 @@ function Activate() {
 
   return (
     <div className="flex min-h-svh items-center justify-center p-4">
-      <form onSubmit={handleSubmit(activate)} className="w-full max-w-sm">
+      <form onSubmit={handleSubmit(activate as any)} className="w-full max-w-sm">
         <FieldGroup>
           <div className="space-y-1">
             <h1 className="text-2xl font-semibold">Activate account</h1>
@@ -75,7 +77,7 @@ function Activate() {
           </Field>
 
           <Button type="submit" disabled={isActivating}>
-            {isActivating ? "Activating..." : "Activate"}
+            {isActivating ?<HugeiconsIcon icon={LoaderIcon} className="animate-spin" />: "Activate"}
           </Button>
 
           <p className="text-center text-sm text-muted-foreground">
@@ -86,7 +88,7 @@ function Activate() {
               onClick={() => resend({})}
               className={cn(buttonVariants({ variant: "link" }), "h-auto p-0")}
             >
-              {isResending ? "Sending..." : "Resend code"}
+              {isResending ? <HugeiconsIcon icon={LoaderIcon} className="animate-spin" /> : "Resend code"}
             </button>
           </p>
         </FieldGroup>

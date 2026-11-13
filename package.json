@@ -1,0 +1,14 @@
+{
+  "name": "sandflex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently -n auth,ui,api -c blue,green,yellow \"npm run start --prefix auth\" \"npm run dev --prefix ui\" \"cd api && ./mvnw spring-boot:run -Dmaven.test.skip=true\""
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "devDependencies": {
+    "concurrently": "^10.0.7"
+  }
+}

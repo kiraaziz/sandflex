@@ -1,6 +1,6 @@
 services:
   db-auth:
-    image: postgres:17-alpine
+    image: postgres:16
     container_name: db-auth
     restart: unless-stopped
     environment:
@@ -8,22 +8,40 @@ services:
       POSTGRES_USER: auth-user
       POSTGRES_PASSWORD: auth-password
     ports:
-    - "5432:5432"
+      - "5432:5432"
     volumes:
-    - db-auth-data:/var/lib/postgresql/data
+      - db-auth-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U auth-user -d main-auth"]
       interval: 5s
       timeout: 5s
       retries: 5
 
+  db-api:
+    image: mysql:8.4
+    container_name: db-api
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: api_service
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-api-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -proot --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
   mail-auth:
     image: axllent/mailpit:latest
     container_name: mail-auth
     restart: unless-stopped
     ports:
-    - "1025:1025"
-    - "8025:8025"
+      - "1025:1025"
+      - "8025:8025"
 
 volumes:
   db-auth-data:
+  db-api-data:

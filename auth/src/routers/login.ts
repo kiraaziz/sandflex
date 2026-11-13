@@ -19,9 +19,9 @@ authLogin.post("/", zValidator("json", z.object({
         return c.json({ message: "Invalid email or password" }, 401)
     }
 
-    if (!user.isActive) {
-        return c.json({ message: "Account is not activated" }, 403)
-    }
+    // if (!user.isActive) {
+    //     return c.json({ message: "Account is not activated" }, 403)
+    // }
 
     return c.json({
         token: await createToken(user.id),

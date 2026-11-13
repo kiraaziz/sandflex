@@ -7,6 +7,8 @@ import { Button, buttonVariants } from "#/components/ui/button"
 import { Input } from "#/components/ui/input"
 import { Field, FieldError, FieldGroup, FieldLabel } from "#/components/ui/field"
 import { cn } from "#/lib/utils"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { LoaderIcon } from "@hugeicons/core-free-icons"
 
 const schema = z.object({
   email: z.email("Enter a valid email"),
@@ -38,7 +40,7 @@ function Login() {
 
   return (
     <div className="flex min-h-svh items-center justify-center p-4">
-      <form onSubmit={handleSubmit(login)} className="w-full max-w-sm">
+      <form onSubmit={handleSubmit(login as any)} className="w-full max-w-sm">
         <FieldGroup>
           <div className="space-y-1">
             <h1 className="text-2xl font-semibold">Login</h1>
@@ -79,7 +81,7 @@ function Login() {
           </Field>
 
           <Button type="submit" disabled={isPending}>
-            {isPending ? "Logging in..." : "Login"}
+            {isPending ? <HugeiconsIcon icon={LoaderIcon} className="animate-spin" /> : "Login"}
           </Button>
 
           <p className="text-center text-sm text-muted-foreground">

@@ -7,6 +7,8 @@ import { Button, buttonVariants } from "#/components/ui/button"
 import { Input } from "#/components/ui/input"
 import { Field, FieldError, FieldGroup, FieldLabel } from "#/components/ui/field"
 import { cn } from "#/lib/utils"
+import { Loader, LoaderIcon } from "@hugeicons/core-free-icons"
+import { HugeiconsIcon } from "@hugeicons/react"
 
 const schema = z
     .object({
@@ -110,7 +112,7 @@ function Register() {
                     </Field>
 
                     <Button type="submit" disabled={isPending}>
-                        {isPending ? "Creating account..." : "Register"}
+                        {isPending ? <HugeiconsIcon icon={LoaderIcon} className="animate-spin" /> : "Register"}
                     </Button>
 
                     <p className="text-center text-sm text-muted-foreground">

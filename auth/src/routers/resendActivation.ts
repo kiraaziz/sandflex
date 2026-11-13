@@ -8,11 +8,15 @@ import { randomInt } from "node:crypto"
 
 export const authResendActivation = new Hono()
 
-authResendActivation.post("/", zValidator("json", z.object({
-    token: z.string().min(1)
-})), async (c) => {
-    const body = c.req.valid("json")
-    const payload = await verifyToken(body.token)
+authResendActivation.post("/", async (c) => {
+
+    const header = c.req.header("Authorization")
+
+    if (!header || !header.startsWith("Bearer ")) {
+        return c.json({ message: "Unauthorized" }, 401)
+    }
+
+    const payload = await verifyToken(header.slice(7))
 
     if (!payload) {
         return c.json({ message: "Invalid or expired token" }, 401)

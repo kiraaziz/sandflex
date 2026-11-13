@@ -7,6 +7,8 @@ import { Button, buttonVariants } from "#/components/ui/button"
 import { Input } from "#/components/ui/input"
 import { Field, FieldError, FieldGroup, FieldLabel } from "#/components/ui/field"
 import { cn } from "#/lib/utils"
+import { LoaderIcon } from "@hugeicons/core-free-icons"
+import { HugeiconsIcon } from "@hugeicons/react"
 
 const schema = z
     .object({
@@ -83,7 +85,7 @@ function ResetPassword() {
                     </Field>
 
                     <Button type="submit" disabled={isPending || !token}>
-                        {isPending ? "Resetting..." : "Reset password"}
+                        {isPending ? <HugeiconsIcon icon={LoaderIcon} className="animate-spin" /> : "Reset password"}
                     </Button>
 
                     <p className="text-center text-sm text-muted-foreground">

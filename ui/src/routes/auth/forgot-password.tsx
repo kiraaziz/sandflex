@@ -32,7 +32,7 @@ function ForgotPassword() {
 
   return (
     <div className="flex min-h-svh items-center justify-center p-4">
-      <form onSubmit={handleSubmit(forgot)} className="w-full max-w-sm">
+      <form onSubmit={handleSubmit(forgot as any)} className="w-full max-w-sm">
         <FieldGroup>
           <div className="space-y-1">
             <h1 className="text-2xl font-semibold">Forgot password</h1>
